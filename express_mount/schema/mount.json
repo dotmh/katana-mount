@@ -1,0 +1,19 @@
+{
+    "name"          : {"type" : "string", "required" : true},
+    "description"   : {"type" : "string"},
+    "author"        : {"type" : "string", "required" : true},
+    "version"       : {"type" : "string", "required" : true},
+    "mount"         : {"type" : "string", "required" : true},
+    "static"        : {"type" : "string"},
+    "router"        : {"type" : "string"},
+    "admin"         : {"type" : "string"},
+    "api"           : {"type" : "string"},
+    "init"          : {"type" : "string"},
+    "modules"       : {"type" : "array"},
+    "api_prefix"    : {"type" : "string"},
+    "admin_prefix"  : {"type" : "string"},
+    "view"          : {
+        "engine" : {"type" : "string"},
+        "path"   : {"type" : "string"}
+    }
+}

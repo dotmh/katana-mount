@@ -1,0 +1,36 @@
+{
+  "name": "express_mount",
+  "version": "0.1.0",
+  "description": "Automount modules in express",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/Dotmh/express_mount.git"
+  },
+  "keywords": [
+    "Express",
+    "Mount",
+    "Routing",
+    "Middleware"
+  ],
+  "author": "Martin Haynes <oss@dotmh.com>",
+  "license": "APACHE2",
+  "homepage": "https://bitbucket.org/Dotmh/express_mount#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-mocha-istanbul": "^5.0.2",
+    "grunt-mocha-test": "^0.13.2",
+    "grunt-notify": "^0.4.5",
+    "mocha": "^3.1.2"
+  },
+  "dependencies": {
+    "istanbul": "^0.4.5",
+    "katana-kit": "^0.4.0"
+  }
+}

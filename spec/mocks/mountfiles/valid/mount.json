@@ -1,0 +1,9 @@
+{
+  "name"    : "mountfile.test",
+  "author"  : "Martin Haynes",
+  "version" : "1.0.0",
+  "router"  : "mountfile_test/routes.js",
+  "admin"   : "mountfile_test/admin.js",
+  "init"    : "mountfile_test/init.d.js",
+  "mount"   : "/"
+}
