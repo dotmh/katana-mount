@@ -1,0 +1,9 @@
+{
+  "name"    : "emount.test.module1",
+  "author"  : "Martin Haynes",
+  "version" : "1.0.0",
+  "router"  : "emount_test/routes.js",
+  "api"     : "emount_test/api.js",
+  "init"    : "emount_test/init.d.js",
+  "mount"   : "/m1"
+}

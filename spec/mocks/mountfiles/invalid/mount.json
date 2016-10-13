@@ -2,6 +2,5 @@
   "name"    : "titan.test",
   "author"  : "Martin Haynes",
   "router"  : "titan_test/routes.js",
-  "admin"   : "titan_test/admin.js",
   "init"    : "titan_test/init.d.js"
 }

@@ -6,7 +6,6 @@
     "mount"         : {"type" : "string", "required" : true},
     "static"        : {"type" : "string"},
     "router"        : {"type" : "string"},
-    "admin"         : {"type" : "string"},
     "api"           : {"type" : "string"},
     "init"          : {"type" : "string"},
     "modules"       : {"type" : "array"},

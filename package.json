@@ -17,7 +17,7 @@
     "Middleware"
   ],
   "author": "Martin Haynes <oss@dotmh.com>",
-  "license": "APACHE2",
+  "license": "Apache-2.0",
   "homepage": "https://bitbucket.org/Dotmh/express_mount#readme",
   "devDependencies": {
     "chai": "^3.5.0",
@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "istanbul": "^0.4.5",
-    "katana-kit": "^0.4.0"
+    "katana-kit": "^0.4.0",
+    "lodash": "^4.16.4"
   }
 }

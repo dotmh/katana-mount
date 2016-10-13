@@ -1,0 +1,10 @@
+{
+  "name" : "EMountSpec",
+  "version" : "1.0.0",
+  "author" : "Martin Haynes",
+  "mount" : "/",
+  "modules" : [
+    "module1",
+    "module2"
+  ]
+}
