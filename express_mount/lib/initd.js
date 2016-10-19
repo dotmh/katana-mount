@@ -17,14 +17,13 @@
     "use strict";
 
     const Eventify = require('katana-kit').Eventify;
-
-    const EVENT_UPDATE_APP = "emount.boot.update.app";
-    const EVENT_APP_ON = "emount.boot.event.add";
+    const ExpressProxy = require('./expressProxy');
 
     class Initd extends Eventify {
 
         constructor() {
             super();
+            this._expressProxy = null;
         }
 
         init() {
@@ -36,19 +35,11 @@
         }
 
         app() {
+            if(null === this._expressProxy) {
+                this._expressProxy = new ExpressProxy(this);
+            }
 
-            let send = (cmd) => {
-                let args = Array.prototype.slice.call(arguments);
-                args.unshift();
-                this.trigger(cmd, args);
-            };
-
-            return {
-                set: (key,value) => send("set", key, value),
-                use: (cb) => send("use" , cb),
-                on: (event,cb) => this.trigger(EVENT_APP_ON, [event, cb, false]),
-                once: (event,cb) => this.trigger(EVENT_APP_ON, [event, cb, true])
-            };
+            return this._expressProxy;
         }
 
     }

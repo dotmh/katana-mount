@@ -1,6 +1,7 @@
 {
     "name"          : {"type" : "string", "required" : true},
     "description"   : {"type" : "string"},
+    "type"          : {"type" : "string"},
     "author"        : {"type" : "string", "required" : true},
     "version"       : {"type" : "string", "required" : true},
     "mount"         : {"type" : "string", "required" : true},
@@ -9,6 +10,7 @@
     "api"           : {"type" : "string"},
     "init"          : {"type" : "string"},
     "modules"       : {"type" : "array"},
+    "requires"      : {"type" : "array"},
     "api_prefix"    : {"type" : "string"},
     "admin_prefix"  : {"type" : "string"},
     "view"          : {

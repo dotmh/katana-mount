@@ -19,10 +19,10 @@
     let path = require("path");
     let _ = require("lodash");
 
-    const MountFiles = require("./mountfiles");
-
     const Eventify = require('katana-kit').Eventify;
     const Logger = require('katana-kit').Logger;
+
+    const MountFiles = require("./mountfiles");
 
     const TYPE_ROUTER   = "router";
     const TYPE_API      = "api";
@@ -54,6 +54,7 @@
             this._apis          = null;
             this._modulePaths   = null;
             this._staticPaths   = null;
+            this._requires      = null;
         }
 
         /**
@@ -85,23 +86,106 @@
                 if ( this.application().has("modules") ) {
                     this.application().find("modules").forEach((module) => {
                         let modulePath = path.join(this._moduleBase , module);
-                        let moduleInstance = new MountFiles(modulePath);
+                        let moduleInstance = new TitanConfig(modulePath);
+
                         moduleInstance.loadConfig();
+
+                        if(this._modules[moduleInstance.name] || false ) {
+
+                            const NAME = moduleInstance.name;
+                            const PATH = moduleInstance.path();
+                            const CURRENT = this._modules[moduleInstance.name];
+                            const CURRENT_PATH = CURRENT.path();
+                            const MSG = `Module Name Conflict: Module ${NAME} as ${PATH} conflicts with ${CURRENT_PATH}`;
+
+                            Logger.error(MSG);
+                            throw new Error(MSG);
+                        }
+
                         this._modules[moduleInstance.name] = moduleInstance;
-                        Logger.info(`Adding Module ${moduleInstance.name}`);
+
+                        Logger.debug(`Adding Module ${moduleInstance.name}`);
                     });
                 }
+
+                this.required();
             }
 
             return this._modules;
         }
 
+        /**
+         * Returns or Loads and Returns the module config for modules defined in application config.
+         *
+         * @returns {Array<Modules>} An array containing each modules Titan Config.
+         *
+         * @author Martin Haynes
+         */
         module(moduleName) {
             if (!(moduleName || false)) {
                 throw new Error("moduleName is required");
             }
 
             return this.modules()[moduleName] || null;
+        }
+
+        /**
+         * Gets all the module requirements by module
+         *
+         * @returns {{}} an object of modules with an array of their depends as <moduleName> => [<Requires>]
+         *
+         * @author Martin Haynes
+         */
+        requires() {
+
+            if(this._requires === null ) {
+                this._requires = {};
+                _.each(this.modules(), (module) => {
+                    if(module.has("requires")) {
+                        this._requires[module.name] = module.requires;
+                    }
+                });
+            }
+
+            return this._requires;
+        }
+
+        /**
+         * Checks that all the module requirements are met, if not throws an error
+         *
+         * @throws {Error} on a module requirement that is missing , the module name , and the missing requirement name
+         *
+         * @author Martin Haynes
+         */
+        required() {
+            _.each(this.requires(), (requirements, module) => {
+                requirements.forEach((requirement) => {
+                    if(this.module(requirement) === null ) {
+                        throw new Error(`Module ${module} requirement ${requirement} is missing`);
+                    }
+                });
+            });
+        }
+
+        /**
+         * Gets all the modules that have been set as a certain type.
+         *
+         * @param type {String} The type that you wish to get
+         *
+         * @returns {{}} An Object containing a list of all the modules of a set type.
+         *
+         * @author Martin Haynes
+         */
+        of(type) {
+            let found = {};
+            _.each(this.modules(), (module, modulename) => {
+                const moduleType = module.type || DEFAULT_TYPE;
+                if(type === moduleType) {
+                    found[modulename] = module;
+                }
+            });
+
+            return found;
         }
 
         /**
