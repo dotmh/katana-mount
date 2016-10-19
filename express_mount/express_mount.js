@@ -16,6 +16,9 @@
     const PREFIX_DEFAULT_ASSETS = "assets";
     const PREFIX_DEFAULT_GLOBAL_ASSETS = "all";
 
+    const EVENT_BOOT_APP_UPDATE = "emount.app.update";
+    const EVENT_BOOT_APP_EVENT_ADD = "emount.app.event.add";
+
     class ExpressMount extends Eventify {
         constructor(root, app, options) {
 
@@ -47,6 +50,14 @@
 
         appStatic() {
             return this._createExpress(STATIC);
+        }
+
+        mount() {
+            this._init();
+            this._attachRoutes();
+            this._attachStatic();
+
+            return this.app();
         }
 
         _createExpress(on) {
@@ -106,6 +117,15 @@
         _init() {
             if(!this.__initRan) {
                 let init = new require("./init")(this._config().inits());
+
+                init.on(EVENT_BOOT_APP_UPDATE, (cmd, args) => this.app()[cmd].apply(this.app(), args));
+                init.on(EVENT_BOOT_APP_EVENT_ADD, (event, handler, type) => {
+                    this[(type === "once" ? "once" : "on")](event, handler);
+                });
+
+                init.init();
+
+                this.__initRan = true;
             }
         }
 
