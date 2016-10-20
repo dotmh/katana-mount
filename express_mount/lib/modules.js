@@ -86,9 +86,11 @@
                 if ( this.application().has("modules") ) {
                     this.application().find("modules").forEach((module) => {
                         let modulePath = path.join(this._moduleBase , module);
-                        let moduleInstance = new TitanConfig(modulePath);
+                        let moduleInstance = new MountFiles(modulePath);
 
                         moduleInstance.loadConfig();
+
+                        Logger.info(`Loading ${moduleInstance.name}`);
 
                         if(this._modules[moduleInstance.name] || false ) {
 

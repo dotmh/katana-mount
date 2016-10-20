@@ -21,7 +21,7 @@
     const Logger = require('katana-kit').Logger;
 
     const MOUNT_FILE = "mount.json";
-    const MOUNT_SCHEMA = process.cwd()+"/express_mount/schema/mount.json";
+    const MOUNT_SCHEMA = path.resolve(__dirname+"/../schema/mount.json");
 
     /**
      * A Class for handling Titan Configuration files

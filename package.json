@@ -2,7 +2,7 @@
   "name": "express_mount",
   "version": "0.1.0",
   "description": "Automount modules in express",
-  "main": "index.js",
+  "main": "express_mount/express_mount.js",
   "scripts": {
     "test": "grunt test"
   },
