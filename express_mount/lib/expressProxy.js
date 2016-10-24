@@ -38,11 +38,11 @@
         }
 
         on(event, handler) {
-            this._app.trigger(EVENT_BOOT_APP_EVENT_ADD, [event, handler, false]);
+            this._app.trigger(EVENT_BOOT_APP_EVENT_ADD, [event, handler, "on"]);
         }
 
         once(event, handler) {
-            this._app.trigger(EVENT_BOOT_APP_EVENT_ADD, [event, handler, true]);
+            this._app.trigger(EVENT_BOOT_APP_EVENT_ADD, [event, handler, "once"]);
         }
     }
 
